@@ -1,4 +1,4 @@
-# Grab-IT-on-Steroids
+# Grab-IT-autonomy-stack
 
 Making a Joy-IT Grab-it robot arm compatible with algorithm-driven control
 
@@ -8,7 +8,7 @@ This Project aims to upgrade a [Joy-IT Grab-IT](https://joy-it.net/de/products/R
 
 Once the hardware is up and running, a RaspberryPi3 computing unit running ubuntu 22.04 Server and ROS2 Humble will be added to implement Moveit Control and autonomous behavior control.
 
-## Parts:
+## Parts
 
 - [Joy-IT Grab-IT](https://joy-it.net/de/products/Robot02)
 - [Joy-IT Motorino](https://joy-it.net/de/products/ARD-Moto3)
