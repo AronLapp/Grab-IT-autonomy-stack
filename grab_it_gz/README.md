@@ -1,5 +1,11 @@
 # grab_it_gz
 
+## Status
+
+Model is complete up to flange (Gripper fingers are missing). Calibration is roughly done but needs some adjustments (especially joints 3 and 4)
+
+![Gazebo sim screenshot](images/gz_sim_model_03_02_26.png)
+
 ## Build
 
 ```bash
