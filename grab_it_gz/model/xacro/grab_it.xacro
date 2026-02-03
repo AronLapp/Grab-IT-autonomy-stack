@@ -100,6 +100,30 @@
             </collision>
         </link>
 
+        <!-- link_4 -->
+        <link name="${name}_link_4">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertial>
+                <mass value="1.0"/>
+                <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+            </inertial>
+
+            <!-- Visuals -->
+            <visual name='l4_e_1_visual'>
+                <geometry>
+                    <mesh filename="model://meshes/AXIS_4.dae"/>
+                </geometry>
+                <material name="material_silber"/>
+            </visual>
+
+            <!-- Collisions -->
+            <collision name='l4_e_1_collision'>
+                <geometry>
+                    <mesh filename="model://meshes/AXIS_4.dae"/>
+                </geometry>
+            </collision>
+        </link>
+
         <joint name='joint_1' type='revolute'>
             <origin xyz="0 0.0625 0.0725" rpy="0 0 0"/>
             <parent link="${name}_base_link"/>
@@ -118,9 +142,18 @@
         </joint>
 
         <joint name='joint_3' type='revolute'>
-            <origin xyz="-0.0475 0.002 0.11125" rpy="0 0 0"/>
+            <origin xyz="-0.0475 0.002 0.10125" rpy="0 0 0"/>
             <parent link="${name}_link_2"/>
             <child link="${name}_link_3"/>
+            <axis xyz ="1 0 0"/>
+            <limit lower="-3.01941960595019" upper="3.01941960595019" velocity="3" effort="50"/>
+            <dynamics damping="0.1"/>
+        </joint>
+
+        <joint name='joint_4' type='revolute'>
+            <origin xyz="-0.00434 -0.01 0.10625" rpy="0 0 0"/>
+            <parent link="${name}_link_3"/>
+            <child link="${name}_link_4"/>
             <axis xyz ="1 0 0"/>
             <limit lower="-3.01941960595019" upper="3.01941960595019" velocity="3" effort="50"/>
             <dynamics damping="0.1"/>
@@ -145,6 +178,13 @@
                 <state_interface name="velocity"/>
             </joint>
             <joint name="joint_3">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <param name="initial_value">0.0</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="joint_4">
                 <command_interface name="position"/>
                 <state_interface name="position">
                     <param name="initial_value">0.0</param>
