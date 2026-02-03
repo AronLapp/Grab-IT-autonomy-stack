@@ -20,10 +20,10 @@ example:
 
 ```bash
 ros2 topic pub -1 /arm_controller/joint_trajectory trajectory_msgs/msg/JointTrajectory "{
-  joint_names: ['joint_1', 'joint_2'],
+  joint_names: ['joint_1', 'joint_2', 'joint_3'],
   points: [
     {
-      positions: [1.0, -0.5],
+      positions: [1.0, -0.5, 1.5],
       time_from_start: {sec: 2, nanosec: 0}
     }
   ]
