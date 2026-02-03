@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<interface xmlns:xacro="http://www.ros.org/wiki/xacro"
+    xmlns:interface="http://ros.org/wiki/#interface">
+    <xacro:macro name="grab_it_model" params="name pose_xyz pose_rpy">
+        <xacro:arg name="name" default="grab_it"/>
+        <xacro:arg name="pose_xyz" default="0 0 0"/>
+        <xacro:arg name="pose_rpy" default="0 0 0"/>
+        <xacro:arg name="use_sim_plugins" default="true"/>
+        <xacro:include filename="$(find grab_it_gz)/model/xacro/materials.xacro"/>
+
+        <origin xyz="${pose_xyz}" rpy="${pose_rpy}"/>
+
+        <!-- base_link -->
+        <link name="${name}_base_link">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertial>
+                <mass value="10.0"/>
+                <inertia ixx="0" ixy="0" ixz="0" iyy="0.001" iyz="0.001" izz="0.001"/>
+            </inertial>
+            <visual name="${name}_base_link">
+                <geometry>
+                    <mesh filename="model://meshes/Base_plate.dae"/>
+                </geometry>
+                <material name="material_silber"/>
+            </visual>
+            <collision name="base_link_collision">
+                <geometry>
+                    <mesh filename="model://meshes/Base_plate.dae"/>
+                </geometry>
+            </collision>
+        </link>
+        <!-- link_1 -->
+        <link name="${name}_link_1">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertial>
+                <mass value="1"/>
+                <inertia ixx="0.001" ixy="0.001" ixz="0.001" iyy="0.001" iyz="0.001" izz="0.001"/>
+            </inertial>
+
+            <!-- Visuals -->
+            <visual name='l1_e_1_visual'>
+                <geometry>
+                    <mesh filename="model://meshes/AXIS_1.dae"/>
+                </geometry>
+                <material name="material_silber"/>
+            </visual>
+            <!-- Collisions -->
+            <collision name='l1_e_1_collision'>
+                <geometry>
+                    <mesh filename="model://meshes/AXIS_1.dae"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <!-- link_2 -->
+        <link name="${name}_link_2">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertial>
+                <mass value="1"/>
+                <inertia ixx="0.001" ixy="0.001" ixz="0.001" iyy="0.001" iyz="0.001" izz="0.001"/>
+            </inertial>
+
+            <!-- Visuals -->
+            <visual name='l2_e_1_visual'>
+                <geometry>
+                    <mesh filename="model://meshes/AXIS_2.dae"/>
+                </geometry>
+                <material name="material_silber"/>
+            </visual>
+
+            <!-- Collisions -->
+            <collision name='l2_e_1_collision'>
+                <geometry>
+                    <mesh filename="model://meshes/AXIS_2.dae"/>
+                </geometry>
+            </collision>
+        </link>
+        <joint name='joint_1' type='revolute'>
+            <origin xyz="0 0.0625 0.0725" rpy="0 0 0"/>
+            <parent link="${name}_base_link"/>
+            <child link="${name}_link_1"/>
+            <axis xyz ="0 0 1"/>
+            <limit lower="-3.01941960595019" upper="3.01941960595019" velocity="3" effort="50"/>
+            <dynamics damping="0.1"/>
+        </joint>
+        <joint name='joint_2' type='revolute'>
+            <origin xyz="0.018 -0.008 0.0253" rpy="0 0 0"/>
+            <parent link="${name}_link_1"/>
+            <child link="${name}_link_2"/>
+            <axis xyz ="1 0 0"/>
+            <limit lower="-3.01941960595019" upper="3.01941960595019" velocity="3" effort="50"/>
+            <dynamics damping="0.1"/>
+        </joint>
+        <ros2_control name="GazeboSimSystem" type="system">
+            <hardware>
+                <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+            </hardware>
+            <joint name="joint_1">
+                <command_interface name="position"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="joint_2">
+                <command_interface name="position"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+            </joint>
+        </ros2_control>
+    </xacro:macro>
+</interface>
