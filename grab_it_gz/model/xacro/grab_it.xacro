@@ -124,6 +124,30 @@
             </collision>
         </link>
 
+        <!-- link_5 -->
+        <link name="${name}_link_5">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertial>
+                <mass value="1.0"/>
+                <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+            </inertial>
+
+            <!-- Visuals -->
+            <visual name='l5_e_1_visual'>
+                <geometry>
+                    <mesh filename="model://meshes/AXIS_5.dae"/>
+                </geometry>
+                <material name="material_silber"/>
+            </visual>
+
+            <!-- Collisions -->
+            <collision name='l5_e_1_collision'>
+                <geometry>
+                    <mesh filename="model://meshes/AXIS_5.dae"/>
+                </geometry>
+            </collision>
+        </link>
+
         <joint name='joint_1' type='revolute'>
             <origin xyz="0 0.0625 0.0725" rpy="0 0 0"/>
             <parent link="${name}_base_link"/>
@@ -159,6 +183,15 @@
             <dynamics damping="0.1"/>
         </joint>
 
+        <joint name='joint_5' type='revolute'>
+            <origin xyz="0.025 0.02 0.042625" rpy="0 0 0"/>
+            <parent link="${name}_link_4"/>
+            <child link="${name}_link_5"/>
+            <axis xyz ="0 0 1"/>
+            <limit lower="-3.01941960595019" upper="3.01941960595019" velocity="3" effort="50"/>
+            <dynamics damping="0.1"/>
+        </joint>
+
         <ros2_control name="GazeboSimSystem" type="system">
             <hardware>
                 <plugin>gz_ros2_control/GazeboSimSystem</plugin>
@@ -185,6 +218,13 @@
                 <state_interface name="velocity"/>
             </joint>
             <joint name="joint_4">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <param name="initial_value">0.0</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="joint_5">
                 <command_interface name="position"/>
                 <state_interface name="position">
                     <param name="initial_value">0.0</param>
