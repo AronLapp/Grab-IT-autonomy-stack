@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot name="grab_it"
+    xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- args -->
+    <xacro:arg name="name" default="grab_it"/>
+    <xacro:arg name="controllers_yaml" default=""/>
+    <xacro:arg name="use_ros2_control" default="true"/>
+
+    <!-- includes -->
+    <xacro:include filename="$(find grab_it_gz)/model/xacro/grab_it.xacro"/>
+
+    <!-- robot model -->
+    <xacro:grab_it_model name="$(arg name)" pose_xyz="0 0 0" pose_rpy="0 0 0"/>
+
+    <!-- Gazebo ros2_control system plugin (URDF Gazebo extension) -->
+    <xacro:if value="$(arg use_ros2_control)">
+        <gazebo>
+            <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+                <parameters>$(arg controllers_yaml)</parameters>
+            </plugin>
+        </gazebo>
+    </xacro:if>
+
+</robot>

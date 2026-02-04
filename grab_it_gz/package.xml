@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="2">
+    <name>grab_it_gz</name>
+    <version>0.0.1</version>
+    <description>
+    Gz-Sim integration modded grab_it
+    </description>
+    <maintainer email="aron.lapp@t-online.de">Aron Lapp</maintainer>
+    <license>MIT</license>
+
+    <buildtool_depend>ament_cmake</buildtool_depend>
+
+    <depend>rclpy</depend>
+    <depend>ros_gz_sim</depend>
+    <depend>sensor_msgs</depend>
+    <depend>moveit_ros_planning_interface</depend>
+    <depend>moveit_ros_move_group</depend>
+    <depend>moveit_ros_warehouse</depend>
+    <depend>moveit_commander</depend>
+
+
+    <exec_depend>gazebo_ros</exec_depend>
+    <exec_depend>launch_ros</exec_depend>
+
+    <export>
+        <build_type>ament_cmake</build_type>
+        <gazebo_ros gazebo_model_path="${prefix}/model"/>
+    </export>
+</package>
